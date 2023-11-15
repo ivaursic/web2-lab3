@@ -5,9 +5,10 @@ const https = require('https'); // Dodano
 const fs = require('fs'); // Dodano
 const bodyParser = require('body-parser');
 
+const app = express();
+
 app.use(bodyParser.json());
 
-const app = express();
 const port = 3000;
 
 if (config.externalUrl) {
