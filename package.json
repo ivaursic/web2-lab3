@@ -7,7 +7,7 @@
     "test": "-",
     "build": "npm run clean",
     "clean": "rm -rf dist",
-    "start": "node settings.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
