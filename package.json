@@ -4,15 +4,16 @@
   "description": "web2-lab3",
   "main": "index.js",
   "scripts": {
-    "test": "-"
+    "test": "-",
+    "build": "npm run clean",
+    "clean": "rm -rf dist",
+    "start": "node settings.js"
   },
   "repository": {
     "type": "git",
     "url": "ivaursic"
   },
-  "keywords": [
-    "-"
-  ],
+  "keywords": ["-"],
   "author": "Iva Ursic",
   "license": "ISC",
   "dependencies": {

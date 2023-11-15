@@ -1,16 +1,20 @@
 const config = require('./config');
 const express = require('express');
+const https = require('https'); // Dodano
+const fs = require('fs'); // Dodano
+
 const app = express();
 const port = 3000;
 
-
 if (config.externalUrl) {
-  const hostname = '0.0.0.0'; //ne 127.0.0.1
+  const hostname = '0.0.0.0';
   app.listen(config.port, hostname, () => {
     console.log(`Server locally running at http://${hostname}:${config.port}/ and from outside on ${config.externalUrl}`);
   });
 } else {
-  https.createServer({
+  const https = require('https');  // Dodajte ovu liniju kako biste uklju?ili modul 'https'
+  const fs = require('fs');  
+  const server = https.createServer({
     key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.cert')
   }, app)
@@ -19,59 +23,34 @@ if (config.externalUrl) {
     });
 }
 
-// Ako koristite document za dobivanje elementa prema ID-u:
-const canvas = typeof document === 'undefined' ? null : document.getElementById("game");
+// Ovaj dio je pomaknut iznad, izvan if-else bloka, tako da se izvr?ava uvijek kada je potrebno
+if (typeof document !== 'undefined') {
 
-// Ako koristite document za dodavanje event listenera:
-const addResizeListener = typeof document === 'undefined'
-  ? function(callback) { /* Implementacija bez documenta */ }
-  : window.addEventListener.bind(window, "resize", callback);
+window.onload = function () {
+  const canvas = document.getElementById("game");
 
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const PLAYER_WIDTH = 50;
-const PLAYER_HEIGHT = 50;
-const ASTEROID_WIDTH = 50;
-const ASTEROID_HEIGHT = 50;
-const ASTEROID_SPEED = 2;
-
-let numAsteroids;
-let asteroidFrequency;
-
-function handleResize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    resetGame(); 
+  if (!canvas) {
+    console.error("Canvas element not found.");
+    return;
   }
-  
-window.addEventListener("resize", handleResize);
 
-function setGameParameters() {
-  // iz local storage
-  numAsteroids = parseInt(localStorage.getItem("numAsteroids")) || 5;
-  asteroidFrequency = parseInt(localStorage.getItem("asteroidFrequency")) || 2000;
-}
+  const ctx = canvas.getContext("2d");
+  const PLAYER_WIDTH = 50;
+  const PLAYER_HEIGHT = 50;
+  const ASTEROID_WIDTH = 50;
+  const ASTEROID_HEIGHT = 50;
+  const ASTEROID_SPEED = 2;
 
-  
-function initializeGame() {
-  let player = {
-    x: canvas.width / 2 - PLAYER_WIDTH / 2,
-    y: canvas.height / 2 - PLAYER_HEIGHT / 2,
-    dx: 0,
-    dy: 0
-  };
-
-  let asteroids = [];
-
-  let bestTime = localStorage.getItem("bestTime") || "00:00.000";
+  let numAsteroids;
+  let asteroidFrequency;
+  let player;
+  let asteroids;
+  let bestTime;
   let startTime, currentTime;
 
   const asteroidImage = new Image();
   asteroidImage.src = "asteroid.png";
-  asteroidImage.onload = function() {
+  asteroidImage.onload = function () {
     if (asteroidImage.width === 0 || asteroidImage.height === 0) {
       console.error("Slika asteroida nije u?itana ispravno. Proverite putanju i veli?inu slike.");
     }
@@ -79,12 +58,11 @@ function initializeGame() {
 
   const playerImage = new Image();
   playerImage.src = "spaceship.png";
-  playerImage.onload = function() {
+  playerImage.onload = function () {
     if (playerImage.width === 0 || playerImage.height === 0) {
       console.error("Slika igra?a nije u?itana ispravno. Proverite putanju i veli?inu slike.");
     }
   };
-
 
   function drawPlayer() {
     ctx.drawImage(playerImage, player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -151,11 +129,11 @@ function initializeGame() {
 
   function generateAsteroid() {
     asteroids.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        dx: (Math.random() - 0.5) * ASTEROID_SPEED,
-        dy: (Math.random() - 0.5) * ASTEROID_SPEED
-      });
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      dx: (Math.random() - 0.5) * ASTEROID_SPEED,
+      dy: (Math.random() - 0.5) * ASTEROID_SPEED
+    });
   }
 
   function drawTime() {
@@ -199,21 +177,21 @@ function initializeGame() {
     startTime = new Date();
     setInterval(draw, 10);
 
-     setInterval(function() {
-    generateAsteroid();
-  }, asteroidFrequency);
+    setInterval(function () {
+      generateAsteroid();
+    }, asteroidFrequency);
   }
 
-  document.addEventListener("keydown", function(event) {
+  document.addEventListener("keydown", function (event) {
     handleKeyDown(event);
   });
 
-  document.addEventListener("keyup", function(event) {
+  document.addEventListener("keyup", function (event) {
     handleKeyUp(event);
   });
 
   function handleKeyDown(event) {
-    switch(event.key) {
+    switch (event.key) {
       case "ArrowLeft":
         player.dx = -2;
         break;
@@ -230,7 +208,7 @@ function initializeGame() {
   }
 
   function handleKeyUp(event) {
-    switch(event.key) {
+    switch (event.key) {
       case "ArrowLeft":
       case "ArrowRight":
         player.dx = 0;
@@ -243,10 +221,4 @@ function initializeGame() {
   }
 
   startGame();
-}
-
-initializeGame(); 
-
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
-});
+}};
