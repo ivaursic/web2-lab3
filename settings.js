@@ -11,3 +11,7 @@ function startGame() {
     window.location.href = "game.html";
   }
   
+  document.addEventListener("DOMContentLoaded", function () {
+    // Sada se ova funkcija izvr?ava kada je DOM u potpunosti u?itan
+    // Dodajte ovdje bilo kakve dodatne inicijalizacije ili event listenere
+});
