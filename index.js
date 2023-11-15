@@ -3,6 +3,9 @@ const config = require('./config');
 const express = require('express');
 const https = require('https'); // Dodano
 const fs = require('fs'); // Dodano
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 const app = express();
 const port = 3000;
@@ -29,9 +32,34 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'settings.html'));
 });
 
-// Dodajte rutu za prikaz game.html
-app.get('/game', (req, res) => {
-  res.sendFile(path.join(__dirname, 'game.html'));
+app.post('/start-game', (req, res) => {
+  // Dohvatite podatke iz tijela zahtjeva (req.body)
+  const { numAsteroids, asteroidFrequency } = req.body;
+
+  // Ovdje obavite inicijalizaciju igre s dobivenim parametrima
+  // Primjer:
+  const player = {
+      x: canvas.width / 2 - PLAYER_WIDTH / 2,
+      y: canvas.height / 2 - PLAYER_HEIGHT / 2,
+      dx: 0,
+      dy: 0,
+  };
+
+  // Postavite igra?a i parametre igre
+  setGameParameters(numAsteroids, asteroidFrequency, player);
+
+  // Inicijalizirajte igru
+  generateAsteroids();
+  startTime = new Date();
+
+  // Postavite intervale za crtanje i generiranje asteroida
+  setInterval(draw, 10);
+  setInterval(function () {
+      generateAsteroid();
+  }, asteroidFrequency);
+
+  // Po?aljite odgovor (ako je potrebno)
+  res.json({ success: true });
 });
 
 // Ovaj dio je pomaknut iznad, izvan if-else bloka, tako da se izvr?ava uvijek kada je potrebno
