@@ -26,7 +26,7 @@ if (config.externalUrl) {
 
 // Dodajte ovu rutu kako biste poslali HTML stranicu
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'settings.html'));
 });
 
 // Dodajte rutu za prikaz game.html
