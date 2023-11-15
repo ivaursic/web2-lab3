@@ -23,6 +23,16 @@ if (config.externalUrl) {
     });
 }
 
+// Dodajte ovu rutu kako biste poslali HTML stranicu
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Dodajte rutu za prikaz game.html
+app.get('/game', (req, res) => {
+  res.sendFile(path.join(__dirname, 'game.html'));
+});
+
 // Ovaj dio je pomaknut iznad, izvan if-else bloka, tako da se izvr?ava uvijek kada je potrebno
 if (typeof document !== 'undefined') {
 
