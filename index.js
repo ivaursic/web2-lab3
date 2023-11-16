@@ -196,12 +196,6 @@ function handleCollision() {
   resetGame();
 }
 
-function handleResize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  resetGame(); 
-}
-
 // Vra?a funkciju za resetiranje igre
 function resetGame() {
   canvas.width = window.innerWidth;
