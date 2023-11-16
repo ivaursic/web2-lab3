@@ -1,7 +1,7 @@
-const canvas = document.getElementById("game");
+const canvas = document.getElementById("game"); //reference na html elemente
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
+canvas.width = window.innerWidth; //postavljanje sirine i visine canvasa
 canvas.height = window.innerHeight;
 
 const PLAYER_WIDTH = 50;
@@ -16,12 +16,11 @@ let currentTime;
   
 
 function setGameParameters() {
-  // iz local storage
-  numAsteroids = parseInt(localStorage.getItem("numAsteroids")) || 5;
+  numAsteroids = parseInt(localStorage.getItem("numAsteroids")) || 5;    // iz local storage
   asteroidFrequency = parseInt(localStorage.getItem("asteroidFrequency")) || 2000;
 }
 
-  
+  //inicijalizacija igre
 function initializeGame() {
   let player = {
     x: canvas.width / 2 - PLAYER_WIDTH / 2,
@@ -32,11 +31,14 @@ function initializeGame() {
 
   let asteroids = [];
 
+  //inicijalizacija najboljeg vremena (local storage)
   let bestTime = parseInt(localStorage.getItem("bestTime")) || "0";
   console.log("Initial bestTime:", bestTime);
   localStorage.setItem("bestTime", bestTime);
   let startTime;
 
+
+  //dohvacanje png ikonica za igraca i asteroide
   const asteroidImage = new Image();
   asteroidImage.src = "asteroid.png";
   asteroidImage.onload = function() {
@@ -53,7 +55,7 @@ function initializeGame() {
     }
   };
 
-
+//crtanja....
   function drawPlayer() {
     ctx.drawImage(playerImage, player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT);
   }
@@ -62,6 +64,7 @@ function initializeGame() {
     ctx.drawImage(asteroidImage, asteroid.x, asteroid.y, ASTEROID_WIDTH, ASTEROID_HEIGHT);
   }
 
+  //azuriranje pozicija na osnovu brzina
   function updatePlayer() {
     player.x += player.dx;
     player.y += player.dy;
@@ -93,12 +96,14 @@ function initializeGame() {
     }
   }
 
+    // Obrada projene velicina ekrana
   function handleResize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     resetGame(); 
   }
 
+  //obrada sudara
   function handleCollision() {
     currentTime = new Date() - startTime;
     console.log("BestTime:", bestTime);
@@ -112,6 +117,7 @@ function initializeGame() {
     resetGame();
   }
 
+  //resetiranje igre
   function resetGame() {
     startTime = new Date();
     currentTime = new Date() - startTime;
@@ -121,6 +127,7 @@ function initializeGame() {
     generateAsteroids();
   }
 
+  //generiranje asteorida
   function generateAsteroids() {
     for (let i = 0; i < numAsteroids; i++) {
       generateAsteroid();
@@ -136,6 +143,7 @@ function initializeGame() {
       });
   }
 
+  //ispsi i format vremena
   function drawTime() {
     ctx.font = '16px Arial';
     ctx.fillStyle = 'white';
@@ -157,6 +165,7 @@ function initializeGame() {
     return s;
   }
 
+  //glavna funkcija za crtanje svih elemenata u azuriranje pozicija
   function draw() {
     currentTime = new Date() - startTime;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -171,6 +180,7 @@ function initializeGame() {
     updateAsteroids();
   }
 
+  //pokretanje igre
   function startGame() {
     setGameParameters(); // iz local storage-a
     generateAsteroids();
@@ -181,6 +191,8 @@ function initializeGame() {
     generateAsteroid();
   }, asteroidFrequency);
   }
+
+    //Listeneri za tipkovnicu i velicinu ekrana
 
   document.addEventListener("keydown", function(event) {
     handleKeyDown(event);
