@@ -34,6 +34,7 @@ function initializeGame() {
 
   let bestTime = localStorage.getItem("bestTime") || "00:00.000";
   console.log("Initial bestTime:", bestTime);
+  localStorage.setItem("bestTime", bestTime);
   let startTime;
 
   const asteroidImage = new Image();
@@ -100,6 +101,8 @@ function initializeGame() {
 
   function handleCollision() {
     currentTime = new Date() - startTime;
+    console.log("BestTime:", bestTime);
+    console.log("Current time:", currentTime);
 
     if (currentTime > bestTime) {
       bestTime = currentTime;
