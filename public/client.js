@@ -39,7 +39,7 @@ function initializeGame() {
   let asteroids = [];
 
   let bestTime = localStorage.getItem("bestTime") || "00:00.000";
-  let startTime, currentTime;
+  let startTime;
 
   const asteroidImage = new Image();
   asteroidImage.src = "asteroid.png";
@@ -109,6 +109,7 @@ function initializeGame() {
   }
 
   function resetGame() {
+    startTime = new Date();
     currentTime = 0; // Postaviti currentTime na 0 prilikom resetiranja igre
     player.x = canvas.width / 2 - PLAYER_WIDTH / 2;
     player.y = canvas.height / 2 - PLAYER_HEIGHT / 2;
