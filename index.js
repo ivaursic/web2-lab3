@@ -43,6 +43,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'settings.html'));
 });
 
+app.get('/game.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'game.html'));
+});
+
+
 app.post('/start-game', (req, res) => {
   // Handle the POST request for starting the game
   const { numAsteroids, asteroidFrequency } = req.body;
