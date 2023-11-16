@@ -287,5 +287,5 @@ function startGame() {
     }
   }
 
-  startGame();
 }};
+startGame();
