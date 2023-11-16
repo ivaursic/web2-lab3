@@ -55,5 +55,22 @@
     <br>
     <button type="submit">Start game!</button>
   </form>
+
+  <script>
+    document.getElementById("startGameForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // Dohvatite vrijednosti iz forme (broj asteroida, frekvencija asteroida)
+      const numAsteroids = document.getElementById("numAsteroids").value;
+      const asteroidFrequency = document.getElementById("asteroidFrequency").value;
+
+      // Pohranite podatke u localStorage
+      localStorage.setItem("numAsteroids", numAsteroids);
+      localStorage.setItem("asteroidFrequency", asteroidFrequency);
+
+      // Preusmjeri korisnika na game.html
+      window.location.href = "/game.html";
+    });
+  </script>
 </body>
 </html>

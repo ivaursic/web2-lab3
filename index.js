@@ -42,7 +42,7 @@ app.post('/start-game', (req, res) => {
   const { numAsteroids, asteroidFrequency } = req.body;
   const canvas = null; // canvas ?e biti postavljen na klijentskoj strani
   const game = initializeGame(canvas, numAsteroids, asteroidFrequency);
-  res.json({ success: true });
+  res.json({ success: true, game });
 });
 
 // Inicijalizacija igre
@@ -206,36 +206,8 @@ function generateAsteroid() {
 }
 
 // Dodaje funkciju za rukovanje tipkovni?kim doga?ajima
-function handleKeyDown(event) {
-  switch (event.key) {
-    case "ArrowLeft":
-      player.dx = -2;
-      break;
-    case "ArrowRight":
-      player.dx = 2;
-      break;
-    case "ArrowUp":
-      player.dy = -2;
-      break;
-    case "ArrowDown":
-      player.dy = 2;
-      break;
-  }
-}
-
-// Dodaje funkciju za rukovanje otpu?tanje tipke
-function handleKeyUp(event) {
-  switch (event.key) {
-    case "ArrowLeft":
-    case "ArrowRight":
-      player.dx = 0;
-      break;
-    case "ArrowUp":
-    case "ArrowDown":
-      player.dy = 0;
-      break;
-  }
-}
+document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("keyup", handleKeyUp);
 
 // Provjerava postoji li dokument (koristi se za izbjegavanje gre?aka pri izvr?avanju na serveru)
 if (typeof document !== 'undefined') {
@@ -312,8 +284,7 @@ function startGame() {
     })
     .then(data => {
       console.log("Igra pokrenuta:", data);
-      // Preusmjerava na game.html
-      window.location.href = "/game.html"; // Dodao '/' ispred putanje
+      // Nema preusmjeravanja
     })
     .catch(error => {
       console.error("Gre?ka pri pokretanju igre:", error);
