@@ -46,31 +46,11 @@
   </style>
 </head>
 <body>
-  <form id="startGameForm" method="POST" action="/start-game">
-    <label for="numAsteroids">Number of asteroids:</label>
-    <input type="number" id="numAsteroids" name="numAsteroids" value="5" min="1">
-    <br>
-    <label for="asteroidFrequency">Asteroid generation frequency (ms):</label>
-    <input type="number" id="asteroidFrequency" name="asteroidFrequency" value="2000" min="1">
-    <br>
-    <button type="submit">Start game!</button>
-  </form>
-
-  <script>
-    document.getElementById("startGameForm").addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      // Dohvatite vrijednosti iz forme (broj asteroida, frekvencija asteroida)
-      const numAsteroids = document.getElementById("numAsteroids").value;
-      const asteroidFrequency = document.getElementById("asteroidFrequency").value;
-
-      // Pohranite podatke u localStorage
-      localStorage.setItem("numAsteroids", numAsteroids);
-      localStorage.setItem("asteroidFrequency", asteroidFrequency);
-
-      // Preusmjeri korisnika na game.html
-      window.location.href = "/game.html";
-    });
-  </script>
+  <label for="numAsteroids">Number of asteroids:</label>
+  <input type="number" id="numAsteroids" value="5" min="1">
+  <label for="asteroidFrequency">Asteroid generation frequency (ms):</label>
+  <input type="number" id="asteroidFrequency" value="2000" min="1">
+  <button onclick="startGame()">Start game!</button>
+  <script src="settings.js"></script>
 </body>
 </html>
