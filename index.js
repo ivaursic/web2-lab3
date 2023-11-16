@@ -37,13 +37,13 @@ app.get('/', (req, res) => {
 app.post('/start-game', (req, res) => {
   // Handle the POST request for starting the game
   const { numAsteroids, asteroidFrequency } = req.body;
-  const game = initializeGame(numAsteroids, asteroidFrequency);
+  const canvas = document.getElementById("game");
+  const game = initializeGame(canvas, numAsteroids, asteroidFrequency);
   res.json({ success: true });
 });
 
 // Inicijalizacija igre
-function initializeGame(numAsteroids, asteroidFrequency) {
-  const canvas = document.getElementById("game");
+function initializeGame(canvas, numAsteroids, asteroidFrequency) {
   const ctx = canvas.getContext("2d");
   const PLAYER_WIDTH = 50;
   const PLAYER_HEIGHT = 50;
