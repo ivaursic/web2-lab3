@@ -12,6 +12,7 @@ const ASTEROID_SPEED = 2;
 
 let numAsteroids;
 let asteroidFrequency;
+let currentTime;
 
 function handleResize() {
     canvas.width = window.innerWidth;
@@ -108,6 +109,7 @@ function initializeGame() {
   }
 
   function resetGame() {
+    currentTime = 0; // Postaviti currentTime na 0 prilikom resetiranja igre
     player.x = canvas.width / 2 - PLAYER_WIDTH / 2;
     player.y = canvas.height / 2 - PLAYER_HEIGHT / 2;
     asteroids = [];
