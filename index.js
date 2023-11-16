@@ -8,7 +8,6 @@ const cors = require('cors');
 
 
 const app = express();
-
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -36,35 +35,46 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'settings.html'));
 });
 
+// Rutiranje za pokretanje igre
 app.post('/start-game', (req, res) => {
-  // Dohvatite podatke iz tijela zahtjeva (req.body)
-  const { numAsteroids, asteroidFrequency } = req.body;
+   // Dohvatite podatke iz tijela zahtjeva (req.body)
+   const { numAsteroids, asteroidFrequency } = req.body;
 
-  // Ovdje obavite inicijalizaciju igre s dobivenim parametrima
-  // Primjer:
+   // Inicijalizirajte igru
+   const game = initializeGame(numAsteroids, asteroidFrequency);
+ 
+   // Po?aljite odgovor
+   res.json({ success: true });
+});
+
+// Inicijalizacija igre
+function initializeGame(numAsteroids, asteroidFrequency) {
   const player = {
-      x: canvas.width / 2 - PLAYER_WIDTH / 2,
-      y: canvas.height / 2 - PLAYER_HEIGHT / 2,
-      dx: 0,
-      dy: 0,
+    x: canvas.width / 2 - PLAYER_WIDTH / 2,
+    y: canvas.height / 2 - PLAYER_HEIGHT / 2,
+    dx: 0,
+    dy: 0,
   };
 
-  // Postavite igra?a i parametre igre
   setGameParameters(numAsteroids, asteroidFrequency, player);
 
-  // Inicijalizirajte igru
   generateAsteroids();
   startTime = new Date();
 
   // Postavite intervale za crtanje i generiranje asteroida
   setInterval(draw, 10);
   setInterval(function () {
-      generateAsteroid();
+    generateAsteroid();
   }, asteroidFrequency);
 
-  // Po?aljite odgovor (ako je potrebno)
-  res.json({ success: true });
-});
+  return {
+    player,
+    asteroids,
+    bestTime,
+    startTime,
+    currentTime,
+  };
+}
 
 // Ovaj dio je pomaknut iznad, izvan if-else bloka, tako da se izvr?ava uvijek kada je potrebno
 if (typeof document !== 'undefined') {
@@ -234,7 +244,7 @@ function startGame() {
   })
     .then(response => {
       if (!response.ok) {
-        throw new Error(`HTTP gre?ka! Status: ${response.status}`);
+        throw new Error(`HTTP greska! Status: ${response.status}`);
       }
       return response.json();
     })
