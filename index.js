@@ -12,6 +12,12 @@ app.use(cors());
 
 const port = 3000;
 
+const PLAYER_WIDTH = 50;
+const PLAYER_HEIGHT = 50;
+const ASTEROID_WIDTH = 50;
+const ASTEROID_HEIGHT = 50;
+const ASTEROID_SPEED = 2;
+
 // Provjerava je li konfigurirana vanjska URL adresa
 if (config.externalUrl) {
   // Ako je vanjska URL adresa konfigurirana, pokre?e HTTP server
@@ -47,13 +53,6 @@ app.post('/start-game', (req, res) => {
 
 // Inicijalizacija igre
 function initializeGame(canvas, numAsteroids, asteroidFrequency) {
-  const ctx = canvas.getContext("2d");
-  const PLAYER_WIDTH = 50;
-  const PLAYER_HEIGHT = 50;
-  const ASTEROID_WIDTH = 50;
-  const ASTEROID_HEIGHT = 50;
-  const ASTEROID_SPEED = 2;
-
   let asteroids = [];
   let bestTime = 0;
   let startTime = 0;
@@ -205,10 +204,6 @@ function generateAsteroid() {
   });
 }
 
-// Dodaje funkciju za rukovanje tipkovni?kim doga?ajima
-document.addEventListener("keydown", handleKeyDown);
-document.addEventListener("keyup", handleKeyUp);
-
 // Provjerava postoji li dokument (koristi se za izbjegavanje gre?aka pri izvr?avanju na serveru)
 if (typeof document !== 'undefined') {
   // Pokre?e se nakon ?to se dokument potpuno u?ita
@@ -221,11 +216,6 @@ if (typeof document !== 'undefined') {
     }
 
     const ctx = canvas.getContext("2d");
-    const PLAYER_WIDTH = 50;
-    const PLAYER_HEIGHT = 50;
-    const ASTEROID_WIDTH = 50;
-    const ASTEROID_HEIGHT = 50;
-    const ASTEROID_SPEED = 2;
 
     let numAsteroids;
     let asteroidFrequency;
