@@ -37,8 +37,13 @@ app.get('/', (req, res) => {
 app.post('/start-game', (req, res) => {
   // Handle the POST request for starting the game
   const { numAsteroids, asteroidFrequency } = req.body;
-  const canvas = document.getElementById("game");
-  const game = initializeGame(canvas, numAsteroids, asteroidFrequency);
+  const canvas = null;
+  if (typeof document !== 'undefined') {
+    // ovdje mo?e? koristiti document
+     canvas = document.getElementById("game");
+  } else {
+    console.error("Document object is not defined. This code should run in a browser environment.");
+  }  const game = initializeGame(canvas, numAsteroids, asteroidFrequency);
   res.json({ success: true });
 });
 
