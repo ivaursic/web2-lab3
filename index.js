@@ -4,10 +4,13 @@ const express = require('express');
 const https = require('https'); // Dodano
 const fs = require('fs'); // Dodano
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const port = 3000;
 
@@ -212,6 +215,8 @@ window.onload = function () {
   }
 
 function startGame() {
+  event.preventDefault();
+
   const numAsteroids = document.getElementById("numAsteroids").value;
   const asteroidFrequency = document.getElementById("asteroidFrequency").value;
 
