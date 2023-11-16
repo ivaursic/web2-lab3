@@ -1,4 +1,3 @@
-const path = require('path');
 const config = require('./config');
 const express = require('express');
 const https = require('https');
@@ -104,6 +103,22 @@ function initializeGame(canvas, numAsteroids, asteroidFrequency) {
     currentTime,
   };
 }
+
+const asteroidImage = new Image();
+asteroidImage.src = "/asteroid.png"; 
+asteroidImage.onload = function () {
+  if (asteroidImage.width === 0 || asteroidImage.height === 0) {
+    console.error("Slika asteroida nije u?itana ispravno. Provjerite putanju i veli?inu slike.");
+  }
+};
+
+const playerImage = new Image();
+playerImage.src = "/spaceship.png";
+playerImage.onload = function () {
+  if (playerImage.width === 0 || playerImage.height === 0) {
+    console.error("Slika igra?a nije u?itana ispravno. Provjerite putanju i veli?inu slike.");
+  }
+};
 
 // Crtanje igre
 function draw() {
@@ -241,22 +256,6 @@ if (typeof document !== 'undefined') {
 
    canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-
-    const asteroidImage = new Image();
-    asteroidImage.src = "/asteroid.png"; // Dodao '/' ispred putanje
-    asteroidImage.onload = function () {
-      if (asteroidImage.width === 0 || asteroidImage.height === 0) {
-        console.error("Slika asteroida nije u?itana ispravno. Provjerite putanju i veli?inu slike.");
-      }
-    };
-
-    const playerImage = new Image();
-    playerImage.src = "/spaceship.png"; // Dodao '/' ispred putanje
-    playerImage.onload = function () {
-      if (playerImage.width === 0 || playerImage.height === 0) {
-        console.error("Slika igra?a nije u?itana ispravno. Provjerite putanju i veli?inu slike.");
-      }
-    };
 
     // Dodaje rukovanje tipkovni?kim doga?ajima
     document.addEventListener("keydown", handleKeyDown);
