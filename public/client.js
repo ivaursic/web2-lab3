@@ -135,13 +135,40 @@ function initializeGame() {
   }
 
   function generateAsteroid() {
-    asteroids.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        dx: (Math.random() - 0.5) * ASTEROID_SPEED,
-        dy: (Math.random() - 0.5) * ASTEROID_SPEED
-      });
-  }
+    const side = Math.floor(Math.random() * 4);  // Random strana
+    let x, y, dx, dy;
+
+    switch (side) {
+        case 0:  // Lijevo
+            x = 0 - ASTEROID_WIDTH;
+            y = Math.random() * canvas.height;
+            dx = Math.random() * ASTEROID_SPEED;
+            dy = (Math.random() - 0.5) * ASTEROID_SPEED;
+            break;
+        case 1:  // Gore
+            x = Math.random() * canvas.width;
+            y = 0 - ASTEROID_HEIGHT;
+            dx = (Math.random() - 0.5) * ASTEROID_SPEED;
+            dy = Math.random() * ASTEROID_SPEED;
+            break;
+        case 2:  // Desno
+            x = canvas.width;
+            y = Math.random() * canvas.height;
+            dx = -Math.random() * ASTEROID_SPEED;
+            dy = (Math.random() - 0.5) * ASTEROID_SPEED;
+            break;
+        case 3:  // Dolje
+            x = Math.random() * canvas.width;
+            y = canvas.height;
+            dx = (Math.random() - 0.5) * ASTEROID_SPEED;
+            dy = -Math.random() * ASTEROID_SPEED;
+            break;
+        default:
+            break;
+    }
+
+    asteroids.push({ x, y, dx, dy });
+}
 
   //ispsi i format vremena
   function drawTime() {
