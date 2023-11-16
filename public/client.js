@@ -19,7 +19,6 @@ function handleResize() {
     resetGame(); 
   }
   
-window.addEventListener("resize", handleResize);
 
 function setGameParameters() {
   // iz local storage
@@ -183,6 +182,8 @@ function initializeGame() {
   document.addEventListener("keyup", function(event) {
     handleKeyUp(event);
   });
+
+  window.addEventListener("resize", handleResize);
 
   function handleKeyDown(event) {
     switch(event.key) {
