@@ -13,12 +13,6 @@ const ASTEROID_SPEED = 2;
 let numAsteroids;
 let asteroidFrequency;
 let currentTime;
-
-function handleResize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    resetGame(); 
-  }
   
 
 function setGameParameters() {
@@ -95,6 +89,12 @@ function initializeGame() {
         handleCollision();
       }
     }
+  }
+
+  function handleResize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    resetGame(); 
   }
 
   function handleCollision() {
