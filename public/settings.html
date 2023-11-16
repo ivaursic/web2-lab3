@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asteroids Game Settings</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #001f3f; /* Tamno plava boja pozadine */
+      color: #fff; /* Bijela boja teksta */
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    label {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    input {
+      padding: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #fff; /* Bijela boja pozadine gumba */
+      color: purple;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #001f3f; /* Tamno plava boja pozadine prilikom prelaska mi?em */
+      color: #fff; /* Bijela boja teksta prilikom prelaska mi?em */
+    }
+  </style>
+</head>
+<body>
+  <form id="startGameForm" method="POST" action="/start-game">
+    <label for="numAsteroids">Number of asteroids:</label>
+    <input type="number" id="numAsteroids" name="numAsteroids" value="5" min="1">
+    <br>
+    <label for="asteroidFrequency">Asteroid generation frequency (ms):</label>
+    <input type="number" id="asteroidFrequency" name="asteroidFrequency" value="2000" min="1">
+    <br>
+    <button type="submit">Start game!</button>
+  </form>
+</body>
+</html>

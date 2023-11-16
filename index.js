@@ -29,21 +29,19 @@ if (config.externalUrl) {
   });
 }
 
+// Postavljanje stati?kog direktorija za public
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Dodaje rutu za slanje HTML stranice
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'settings.html'));
+  res.sendFile(path.join(__dirname, 'public', 'settings.html'));
 });
 
 app.post('/start-game', (req, res) => {
   // Handle the POST request for starting the game
   const { numAsteroids, asteroidFrequency } = req.body;
-  const canvas = null;
-  if (typeof document !== 'undefined') {
-    // ovdje mo?e? koristiti document
-     canvas = document.getElementById("game");
-  } else {
-    console.error("Document object is not defined. This code should run in a browser environment.");
-  }  const game = initializeGame(canvas, numAsteroids, asteroidFrequency);
+  const canvas = null; // canvas ?e biti postavljen na klijentskoj strani
+  const game = initializeGame(canvas, numAsteroids, asteroidFrequency);
   res.json({ success: true });
 });
 
@@ -265,7 +263,7 @@ if (typeof document !== 'undefined') {
     let startTime, currentTime;
 
     const asteroidImage = new Image();
-    asteroidImage.src = "asteroid.png";
+    asteroidImage.src = "/asteroid.png"; // Dodao '/' ispred putanje
     asteroidImage.onload = function () {
       if (asteroidImage.width === 0 || asteroidImage.height === 0) {
         console.error("Slika asteroida nije u?itana ispravno. Provjerite putanju i veli?inu slike.");
@@ -273,7 +271,7 @@ if (typeof document !== 'undefined') {
     };
 
     const playerImage = new Image();
-    playerImage.src = "spaceship.png";
+    playerImage.src = "/spaceship.png"; // Dodao '/' ispred putanje
     playerImage.onload = function () {
       if (playerImage.width === 0 || playerImage.height === 0) {
         console.error("Slika igra?a nije u?itana ispravno. Provjerite putanju i veli?inu slike.");
@@ -291,8 +289,6 @@ if (typeof document !== 'undefined') {
 
 // Dodaje funkciju za pokretanje igre
 function startGame() {
-  event.preventDefault();
-
   const numAsteroids = document.getElementById("numAsteroids").value;
   const asteroidFrequency = document.getElementById("asteroidFrequency").value;
 
@@ -317,7 +313,7 @@ function startGame() {
     .then(data => {
       console.log("Igra pokrenuta:", data);
       // Preusmjerava na game.html
-      window.location.href = "game.html";
+      window.location.href = "/game.html"; // Dodao '/' ispred putanje
     })
     .catch(error => {
       console.error("Gre?ka pri pokretanju igre:", error);
