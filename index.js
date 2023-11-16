@@ -34,6 +34,13 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'settings.html'));
 });
 
+app.post('/start-game', (req, res) => {
+  // Handle the POST request for starting the game
+  const { numAsteroids, asteroidFrequency } = req.body;
+  const game = initializeGame(numAsteroids, asteroidFrequency);
+  res.json({ success: true });
+});
+
 // Inicijalizacija igre
 function initializeGame(numAsteroids, asteroidFrequency) {
   const canvas = document.getElementById("game");
