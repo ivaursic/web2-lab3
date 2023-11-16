@@ -196,6 +196,12 @@ function handleCollision() {
   resetGame();
 }
 
+function handleResize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  resetGame(); 
+}
+
 // Vra?a funkciju za resetiranje igre
 function resetGame() {
   canvas.width = window.innerWidth;
@@ -258,6 +264,9 @@ if (typeof document !== 'undefined') {
     // Dodaje rukovanje tipkovni?kim doga?ajima
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
+
+    window.addEventListener("resize", handleResize);
+
 
     // Pokre?e igru
     startGame();
