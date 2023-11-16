@@ -45,7 +45,7 @@ if (config.externalUrl) {
 }
 
 // Postavljanje stati?kog direktorija za public
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname)));
 
 //app.use(express.static(path.join(__dirname, 'public'), { 'Content-Type': 'application/javascript' }));
 
