@@ -33,6 +33,7 @@ function initializeGame() {
   let asteroids = [];
 
   let bestTime = localStorage.getItem("bestTime") || "00:00.000";
+  console.log("Initial bestTime:", bestTime);
   let startTime;
 
   const asteroidImage = new Image();
