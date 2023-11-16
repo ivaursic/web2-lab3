@@ -32,7 +32,7 @@ function initializeGame() {
 
   let asteroids = [];
 
-  let bestTime = localStorage.getItem("bestTime") || "00:00.000";
+  let bestTime = parseInt(localStorage.getItem("bestTime")) || "0";
   console.log("Initial bestTime:", bestTime);
   localStorage.setItem("bestTime", bestTime);
   let startTime;
