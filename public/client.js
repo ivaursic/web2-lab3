@@ -19,6 +19,15 @@ function handleResize() {
     canvas.height = window.innerHeight;
     resetGame(); 
   }
+
+  function resetGame() {
+    startTime = new Date();
+    currentTime = 0; // Postaviti currentTime na 0 prilikom resetiranja igre
+    player.x = canvas.width / 2 - PLAYER_WIDTH / 2;
+    player.y = canvas.height / 2 - PLAYER_HEIGHT / 2;
+    asteroids = [];
+    generateAsteroids();
+  }
   
 
 function setGameParameters() {
@@ -108,15 +117,6 @@ function initializeGame() {
     resetGame();
   }
 
-  function resetGame() {
-    startTime = new Date();
-    currentTime = 0; // Postaviti currentTime na 0 prilikom resetiranja igre
-    player.x = canvas.width / 2 - PLAYER_WIDTH / 2;
-    player.y = canvas.height / 2 - PLAYER_HEIGHT / 2;
-    asteroids = [];
-    generateAsteroids();
-  }
-
   function generateAsteroids() {
     for (let i = 0; i < numAsteroids; i++) {
       generateAsteroid();
@@ -141,6 +141,9 @@ function initializeGame() {
   }
 
   function formatTime(time) {
+    if (isNaN(time)) {
+        return "00:00.000";
+      }
     const minutes = Math.floor(time / (60 * 1000));
     const seconds = Math.floor((time % (60 * 1000)) / 1000);
     const milliseconds = time % 1000;
