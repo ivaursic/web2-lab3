@@ -69,9 +69,9 @@ app.post('/start-game', (req, res) => {
 function initializeGame(canvas, numAsteroids, asteroidFrequency) {
   canvas = document.getElementById("game");
   ctx = canvas.getContext("2d"); 
-  
+
   let asteroids = [];
-  let bestTime = 0;
+  let bestTime = localStorage.getItem("bestTime") || "00:00.000";
   let startTime = 0;
   let currentTime = 0;
 
@@ -198,6 +198,8 @@ function handleCollision() {
 
 // Vra?a funkciju za resetiranje igre
 function resetGame() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
   player.x = canvas.width / 2 - PLAYER_WIDTH / 2;
   player.y = canvas.height / 2 - PLAYER_HEIGHT / 2;
   asteroids = [];
@@ -233,6 +235,9 @@ if (typeof document !== 'undefined') {
     }
 
    ctx = canvas.getContext("2d");
+
+   canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
     const asteroidImage = new Image();
     asteroidImage.src = "/asteroid.png"; // Dodao '/' ispred putanje
